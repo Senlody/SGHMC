@@ -15,10 +15,10 @@ def sghmc(grad_log_den_data, grad_log_den_prior, data, V_hat, eps, theta_0, C, h
     
     INPUT:            
         grad_log_den_data: function with parameters (data,theta)
-            to compute $\nabla log(p(data|theta))$ (gradient with respect to theta) of a set of data.
+            to compute $\\nabla log(p(data|theta))$ (gradient with respect to theta) of a set of data.
             
         grad_log_den_prior: function with parameter (theta)
-            to compute $\nabla log(p(theta))$.
+            to compute $\\nabla log(p(theta))$.
             
         data: np.array with shape (n,m)
             representing observed data 
@@ -58,7 +58,6 @@ def sghmc(grad_log_den_data, grad_log_den_prior, data, V_hat, eps, theta_0, C, h
         inner function to compute $\nabla \tilde{U}$ defined in paper.
         '''
         return(-(n*grad_log_den_data(batch,theta)/batch.shape[0]+grad_log_den_prior(theta)))
-    
     
     n,m = data.shape
     p = theta_0.shape[0]
@@ -144,10 +143,10 @@ def sghmc_chains(grad_log_den_data, grad_log_den_prior, data, V_hat, eps, theta_
     
     INPUT:            
         grad_log_den_data: function with parameters (data,theta)
-            to compute $\nabla log(p(data|theta))$ (gradient with respect to theta) of a set of data.
+            to compute $\\nabla log(p(data|theta))$ (gradient with respect to theta) of a set of data.
             
         grad_log_den_prior: function with parameter (theta)
-            to compute $\nabla log(p(theta))$.
+            to compute $\\nabla log(p(theta))$.
             
         data: np.array with shape (n,m)
             representing observed data 
