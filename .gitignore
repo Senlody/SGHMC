@@ -128,5 +128,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Debugging PyNotes
-*.ipynb
+#cppimport
+.cppfuncs.cpp.cppimporthash
+.rendered.cppfuncs.cpp

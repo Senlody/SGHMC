@@ -1,0 +1,19 @@
+Metadata-Version: 2.1
+Name: SGHMC
+Version: 0.0.2
+Summary: Implementation of Stochastic Gradient Hamiltonian Monte Carlo.
+Home-page: https://github.com/Senlody/SGHMC
+Author: Zining Ma, Machao Deng
+Author-email: zining.ma@duke.edu, machao.deng@duke.edu
+License: UNKNOWN
+Description: # SGHMC
+        Implementation of Stochastic Gradient Hamiltonian Monte Carlo.
+        
+        (This is the final project for duke STA663)
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License ::  OSI Approved:: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
