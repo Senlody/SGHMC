@@ -2,6 +2,7 @@ import numpy as _np
 from scipy import linalg as _la
 from multiprocessing import Pool as _Pool
 from functools import partial as _pt
+import sys as _sys
 
 def sghmc(grad_log_den_data, grad_log_den_prior, data, V_hat, eps, theta_0, C, heatup, epoches, batch_size, Minv = None):
     '''
@@ -62,6 +63,19 @@ def sghmc(grad_log_den_data, grad_log_den_prior, data, V_hat, eps, theta_0, C, h
     n,m = data.shape
     p = theta_0.shape[0]
     
+    if V_hat.shape != (p,p):
+        _sys.exit('V_hat dimension do not match with theta')
+        
+    if Minv is not None:
+        if Minv.shape != (p,p):
+            _sys.exit('Minv dimension do not match with theta')
+            
+    if C.shape != (p,p):
+        _sys.exit('C dimension do not match with theta')
+        
+    if n%batch_size != 0:
+        _sys.exit('number of data should be divisible by batch_size')
+    
     if(Minv is None):
         sqrtM = _np.eye(p)
         prer = eps
@@ -77,13 +91,13 @@ def sghmc(grad_log_den_data, grad_log_den_prior, data, V_hat, eps, theta_0, C, h
     batches = _np.int(_np.ceil(n/batch_size))
     
     theta = theta_0
+    split = _np.split(data,batches)
     for t in range(epoches):
         if(Minv is None):
             r = _np.random.normal(size=(p))
         else:
             r = sqrtM@_np.random.normal(size=(p))
         
-        split = _np.split(data,batches)
         for i in range(batches):
             batch = split[i]
             theta = theta + (prer*r if Minv is None else prer@r)
@@ -103,13 +117,13 @@ def _single_chain(seed, theta_0, epoches, heatup, p, n, Minv, sqrtM, data, batch
     _np.random.seed(seed)
     theta = theta_0
     samples = _np.zeros((epoches - heatup, p))
+    split = _np.split(data,batches)
     for t in range(epoches):
         if(Minv is None):
             r = _np.random.normal(size=(p))
         else:
             r = sqrtM@_np.random.normal(size=(p))
 
-        split = _np.split(data,batches)
         for i in range(batches):
             batch = split[i]
             theta = theta + (prer*r if Minv is None else prer@r)
@@ -186,6 +200,20 @@ def sghmc_chains(grad_log_den_data, grad_log_den_prior, data, V_hat, eps, theta_
 
     n,m = data.shape
     p = theta_0.shape[0]
+    
+    if V_hat.shape != (p,p):
+        _sys.exit('V_hat dimension do not match with theta')
+        
+    if Minv is not None:
+        if Minv.shape != (p,p):
+            _sys.exit('Minv dimension do not match with theta')
+            
+    if C.shape != (p,p):
+        _sys.exit('C dimension do not match with theta')
+        
+    if n%batch_size != 0:
+        _sys.exit('number of data should be divisible by batch_size')
+    
     sqrt_noise = _la.sqrtm(2*(C-0.5*eps*V_hat)*eps)
     batches = _np.int(_np.ceil(n/batch_size))
     

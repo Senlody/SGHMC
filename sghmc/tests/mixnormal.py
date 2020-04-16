@@ -14,6 +14,7 @@ n = 200 # number of observations
 y = np.r_[np.random.normal(mu[0], 1, n),np.random.normal(mu[1], 1, n)]
 
 def mn_glpdf(y,mu):
+    '''compute grad log pdf'''
     exp1=np.exp(-0.5*(y-mu[0])**2)
     exp2=np.exp(-0.5*(y-mu[1])**2)
     
@@ -21,6 +22,7 @@ def mn_glpdf(y,mu):
     return np.sum(v/(exp1+exp2),axis=0)
 
 def mn_glpr(mu):
+    '''compute grad log prior'''
     return -(np.sum(mu)/100)
 
 sim1 = sghmc(mn_glpdf, mn_glpr, y[:,None], V_hat = np.eye(2), eps = 0.01, 

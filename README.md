@@ -8,11 +8,11 @@ This project is the final homework for duke STA663, contributed by Zining Ma (zi
 
 ### Repository contents
 
-- `development/` contains jupyter notebooks for package development
+- `development/` : jupyter notebooks for package development
 
-- `report/` contains contents for the project reoprt
+- `report/` : contents for the project reoprt
 
-- `sghmc/` source codes
+- `sghmc/` : source codes
 
 ### Install
 

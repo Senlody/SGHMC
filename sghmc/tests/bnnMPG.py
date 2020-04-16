@@ -38,6 +38,9 @@ test_dataset = datapd.drop(train_dataset.index)
 print('performing sghmc to fit bnn')
 
 def generate_grad_lpdf(xdim,nnodes,sgmsq):
+    '''
+    This function generates the function to compute grad log pdf of p(data|weights)
+    '''
     def expit(x):
         return 1/(1+np.exp(-x))
     
@@ -63,11 +66,17 @@ def generate_grad_lpdf(xdim,nnodes,sgmsq):
     return grad_lpdf
 
 def generate_grad_lprior(xdim,nnodes,sgmsqbh,sgmsqbu):
+    '''
+    This function generates the function to compute grad log pdf of prior p(weights)
+    '''
     def grad_lprior(theta):
         return -np.r_[theta[:nnodes+1]/sgmsqbu,theta[nnodes+1:]/sgmsqbh]
     return grad_lprior
 
 def generate_predict_func(xdim,nnodes):
+    '''
+    This function generates the function to compute prediction given data and weights
+    '''
     def expit(x):
         return 1/(1+np.exp(-x))
     
@@ -89,6 +98,9 @@ def generate_predict_func(xdim,nnodes):
     return predict
 
 def form_data(y,x):
+    '''
+    To make data matrix
+    '''
     return np.c_[y,x]
 
 xdim=9
@@ -126,6 +138,7 @@ plt.savefig('bnnReg.png')
 plt.clf()
 
 def rmse(u,v):
+    ''' Compute rmse '''
     return np.sqrt(np.mean((u-v)**2))
 
 nsim = sim.shape[0]
