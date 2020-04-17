@@ -23,7 +23,7 @@ def mn_glpdf(y,mu):
 
 def mn_glpr(mu):
     '''compute grad log prior'''
-    return -(np.sum(mu)/100)
+    return -(np.sum(mu)/10)
 
 sim1 = sghmc(mn_glpdf, mn_glpr, y[:,None], V_hat = np.eye(2), eps = 0.01, 
             theta_0 = np.array([0,0]), C = np.eye(2), 
