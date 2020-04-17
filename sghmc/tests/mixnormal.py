@@ -30,6 +30,7 @@ sim1 = sghmc(mn_glpdf, mn_glpr, y[:,None], V_hat = np.eye(2), eps = 0.01,
             heatup = 100, epoches = 200, batch_size = 80)
 
 kdeplt2 = sns.kdeplot(sim1[:,0],sim1[:,1])  
+plt.title('kernel density plot run by sghmc')
 plt.savefig('mixnom1.png')
 
 sim2 = sghmc_chains(mn_glpdf, mn_glpr, y[:,None], V_hat = np.eye(2), eps = 0.01, 
@@ -37,5 +38,7 @@ sim2 = sghmc_chains(mn_glpdf, mn_glpr, y[:,None], V_hat = np.eye(2), eps = 0.01,
             heatup = 100, epoches = 200, batch_size = 80,chain = 20)
 sim2 = np.r_[tuple([asim for asim in sim2])]
 
+plt.clf()
 kdeplt2 = sns.kdeplot(sim2[:,0],sim2[:,1])  
+plt.title('kernel density plot run by sghmc_chains')
 plt.savefig('mixnom2.png')

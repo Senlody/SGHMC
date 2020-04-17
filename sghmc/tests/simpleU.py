@@ -22,9 +22,12 @@ def su_glpr(theta):
 
 eps=0.1
 batch_size = 1
-simsu = sghmc(su_glpdf, su_glpr, np.zeros((50*batch_size,1)), V_hat = np.eye(1)*0, eps = eps, 
+simsu = sghmc_chains(su_glpdf, su_glpr, np.zeros((50*batch_size,1)), V_hat = np.eye(1)*0, eps = eps, 
             theta_0 = np.array([0]), C = np.eye(1)*2*eps, 
-            heatup = 100, epoches = 20000, batch_size = batch_size)
+            heatup = 100, epoches = 20000, batch_size = batch_size,chain=8)
+
+simsu = np.r_[tuple(simsu)]
 
 sns.kdeplot(simsu[:,0])
+plt.title('density plot run by sghmc_chains')
 plt.savefig('simpleU.png')
